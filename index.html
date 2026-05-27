@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>BIENVENIDOS</title>
 
@@ -9,7 +9,7 @@
     body{
       margin:0;
       background:#111;
-      font-family:Arial, sans-serif;
+      font-family:Arial,sans-serif;
     }
 
     .container{
@@ -20,13 +20,13 @@
     }
 
     .canva-frame{
-      position: relative;
-      width: 100%;
-      height: 0;
-      padding-top: 146.1933%;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(63,69,81,0.16);
+      position:relative;
+      width:100%;
+      height:0;
+      padding-top:146.1933%;
+      overflow:hidden;
+      border-radius:12px;
+      box-shadow:0 2px 8px rgba(63,69,81,0.16);
     }
 
     .canva-frame iframe{
@@ -48,16 +48,28 @@
       text-decoration:none;
       font-size:20px;
     }
+
+    /* BOTON OCULTO */
+    #playButton{
+      position:fixed;
+      inset:0;
+      background:transparent;
+      border:none;
+      z-index:9999;
+      cursor:pointer;
+    }
   </style>
 </head>
 
 <body>
 
   <!-- AUDIO -->
-  <audio autoplay loop>
+  <audio id="bgmusic" loop>
     <source src="audio.mp3" type="audio/mpeg">
-    Tu navegador no soporta audio.
   </audio>
+
+  <!-- BOTON INVISIBLE -->
+  <button id="playButton"></button>
 
   <div class="container">
 
@@ -78,6 +90,28 @@
     </div>
 
   </div>
+
+  <script>
+    const audio = document.getElementById("bgmusic");
+    const btn = document.getElementById("playButton");
+
+    audio.volume = 1.0;
+
+    // Intento automático
+    window.addEventListener("load", () => {
+      audio.play().then(() => {
+        btn.style.display = "none";
+      }).catch(() => {
+        console.log("Autoplay bloqueado");
+      });
+    });
+
+    // Reproduce al primer toque/click
+    btn.addEventListener("click", () => {
+      audio.play();
+      btn.style.display = "none";
+    });
+  </script>
 
 </body>
 </html>
